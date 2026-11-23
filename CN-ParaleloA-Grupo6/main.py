@@ -33,7 +33,7 @@ from ui_ventana_principal import Ui_MainWindow
 CASOS_PRECARGADOS = [
     {
         "nombre": "Caso Grupo 6 — Circuito RLC serie [0, 400] Ω (εs = 0.05%)",
-        "funcion": "exp(-R*0.05/(2*5))*cos(sqrt(1/(5*10^-4) - (R/(2*5))^2)*0.05) - 0.01",
+        "funcion": "exp(-0.005*R)*(cos(0.05*sqrt(2000 - R^2/100)) + (R/(10*sqrt(2000 - R^2/100)))*sin(0.05*sqrt(2000 - R^2/100))) - 0.01",
         "xl": 0.0,
         "xu": 400.0,
         "paso": 25.0,
