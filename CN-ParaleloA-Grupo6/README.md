@@ -8,9 +8,9 @@ Aplicación de escritorio desarrollada en **Python** y **Qt Designer (PySide6)**
 - **Grupo:** Grupo 6 (Proyecto B)
 
 ## Integrantes
-- **Integrante 1:** [Nombre y Apellido] — Programación de lógica numérica (`metodo/biseccion.py`)
-- **Integrante 2:** [Nombre y Apellido] — Diseño de interfaz en Qt Designer (`ui/ventana_principal.ui`) y gráficas
-- **Integrante 3:** [Nombre y Apellido] — Pruebas unitarias (`tests/test_metodo.py`), validación y documentación
+- **Integrante 1:** JOHNNY MANUEL FLORES MENENDEZ — Programación de lógica numérica (`metodo/biseccion.py`)
+- **Integrante 2:** CARLOS STEVEN HOPPE BARCIA — Diseño de interfaz en Qt Designer (`ui/ventana_principal.ui`) y gráficas
+- **Integrante 3:** JENS LEONARD VERA PANCHANA — Pruebas unitarias (`tests/test_metodo.py`), validación y documentación
 
 ## Problema de Ingeniería (Circuito RLC)
 En un circuito RLC serie con $L = 5\text{ H}$ y $C = 5\times 10^{-4}\text{ F}$, la carga normalizada en $t = 0.05\text{ s}$ debe disiparse al $1\%$ ($q/q_0 = 0.01$), lo que conduce a:
