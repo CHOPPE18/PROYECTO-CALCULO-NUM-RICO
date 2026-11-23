@@ -83,44 +83,7 @@ def compilar_funcion(
     variable = simbolos[0]
     funcion_np = sp.lambdify(variable, expr, modules=["numpy"])
 
-    def f_escalar(x_val: float) -> float:
-        with np.errstate(all="ignore"):
-            res = funcion_np(float(x_val))
-
-        if isinstance(res, complex) or np.iscomplexobj(res):
-            if abs(np.imag(res)) > 1e-10:
-                raise ValueError(
-                    f"f({x_val:.6g}) produce un valor complejo fuera del dominio real."
-                )
-            res_float = float(np.real(res))
-        else:
-            res_float = float(res)
-
-        if math.isnan(res_float) or math.isinf(res_float):
-            raise ValueError(
-                f"f({x_val:.6g}) no está definida en los reales (NaN o Inf)."
-            )
-        return res_float
-
-    def f_vectorial(x_arr: np.ndarray) -> np.ndarray:
-        arr = np.asarray(x_arr, dtype=float)
-        with np.errstate(all="ignore"):
-            res = funcion_np(arr)
-
-        res_arr = np.asarray(res)
-        if res_arr.ndim == 0:
-            res_arr = np.full(arr.shape, res_arr, dtype=complex)
-
-        salida = np.full(arr.shape, np.nan, dtype=float)
-        if np.iscomplexobj(res_arr):
-            mascara = (np.abs(np.imag(res_arr)) <= 1e-10) & np.isfinite(np.real(res_arr))
-            salida[mascara] = np.real(res_arr[mascara])
-        else:
-            mascara = np.isfinite(res_arr)
-            salida[mascara] = res_arr[mascara]
-        return salida
-
-    return expr, variable.name, f_escalar, f_vectorial
+    
 
 
 def busqueda_incremental(
