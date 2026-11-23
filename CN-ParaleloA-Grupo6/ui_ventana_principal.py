@@ -2,26 +2,7 @@
 # Archivo generado a partir de ui/ventana_principal.ui
 # Regenerar con: pyside6-uic ui/ventana_principal.ui -o ui_ventana_principal.py
 
-from PySide6.QtCore import QCoreApplication, QMetaObject, QRect, QSize, Qt
-from PySide6.QtWidgets import (
-    QComboBox,
-    QDoubleSpinBox,
-    QGridLayout,
-    QGroupBox,
-    QHBoxLayout,
-    QLabel,
-    QLineEdit,
-    QPushButton,
-    QSpinBox,
-    QSplitter,
-    QStatusBar,
-    QTabWidget,
-    QTableWidget,
-    QTableWidgetItem,
-    QTextEdit,
-    QVBoxLayout,
-    QWidget,
-)
+
 
 
 class Ui_MainWindow(object):
