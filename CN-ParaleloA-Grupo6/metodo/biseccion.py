@@ -45,10 +45,10 @@ def compilar_funcion(
 ) -> Tuple[sp.Expr, str, Callable[[float], float], Callable[[np.ndarray], np.ndarray]]:
     """
     Interpreta f(x) escrita como texto mediante SymPy y devuelve:
-    - Expresión simbólica de SymPy
-    - Nombre de la variable independiente detectada (x, R, c, Vd, etc.)
-    - Evaluador escalar seguro f(val) -> float
-    - Evaluador vectorizado f(arr) -> np.ndarray para graficación y búsqueda incremental
+     Expresión simbólica de SymPy
+     Nombre de la variable independiente detectada (x, R, c, Vd, etc.)
+     Evaluador escalar seguro f(val) -> float
+     Evaluador vectorizado f(arr) -> np.ndarray para graficación y búsqueda incremental
     """
     if not expr_str or not expr_str.strip():
         raise ValueError("Debe ingresar una expresión matemática para f(x).")
