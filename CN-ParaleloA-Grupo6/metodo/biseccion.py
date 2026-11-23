@@ -163,3 +163,163 @@ def busqueda_incremental(
     return intervalos
 
 
+def calcular_iteraciones_teoricas(
+    xl_inicial: float,
+    xu_inicial: float,
+    es_porcentaje: float,
+    referencia_raiz: float,
+) -> Tuple[float, int]:
+    """
+    Calcula el número teórico de iteraciones mediante:
+        n = log2(Δx0 / Ea,d)
+    donde Δx0 = xu - xl y Ea,d = (εs / 100) * |referencia_raiz| (o εs/100 si la raíz es 0).
+    """
+    dx0 = abs(xu_inicial - xl_inicial)
+    escala = abs(referencia_raiz) if abs(referencia_raiz) > 1e-12 else 1.0
+    ea_deseado = (es_porcentaje / 100.0) * escala
+
+    if ea_deseado <= 0.0 or dx0 <= ea_deseado:
+        return 1.0, 1
+
+    n_exacto = math.log2(dx0 / ea_deseado)
+    return n_exacto, int(math.ceil(n_exacto))
+
+
+def biseccion(
+    expr_str: str,
+    xl: float,
+    xu: float,
+    es: float = 0.05,
+    max_iter: int = 100,
+    valor_verdadero: Optional[float] = None,
+) -> ResultadoBiseccion:
+    """
+    Implementación manual del método de bisección (Chapra & Canale, Cap. 5).
+
+    Parámetros:
+        expr_str: expresión matemática f(x) como texto.
+        xl: límite inferior del intervalo.
+        xu: límite superior del intervalo.
+        es: tolerancia porcentual deseada εs (%).
+        max_iter: número máximo de iteraciones permitidas.
+        valor_verdadero: valor exacto opcional para calcular εt (%).
+    """
+    if xu <= xl:
+        raise ValueError("El extremo superior xu debe ser mayor que el extremo inferior xl.")
+    if es <= 0:
+        raise ValueError("La tolerancia εs (%) debe ser mayor que cero.")
+    if max_iter < 1:
+        raise ValueError("El máximo de iteraciones debe ser al menos 1.")
+
+    _, var_name, f, _ = compilar_funcion(expr_str)
+
+    xl_0, xu_0 = float(xl), float(xu)
+    fl = f(xl_0)
+    fu = f(xu_0)
+
+    if fl * fu > 0.0:
+        raise ValueError(
+            f"No hay cambio de signo en el intervalo [{xl_0}, {xu_0}]: "
+            f"f({xl_0}) = {fl:.6g} y f({xu_0}) = {fu:.6g} tienen el mismo signo."
+        )
+
+    tabla: List[IteracionBiseccion] = []
+    xr_anterior: Optional[float] = None
+    xr = xl_0
+    fr = fl
+    ea: Optional[float] = None
+    et: Optional[float] = None
+    criterio_parada = f"Máximo de iteraciones alcanzado ({max_iter})"
+
+    for i in range(1, max_iter + 1):
+        xr = (xl + xu) / 2.0
+        fl = f(xl)
+        fr = f(xr)
+        producto = fl * fr
+
+        if xr_anterior is not None:
+            if xr != 0.0:
+                ea = abs((xr - xr_anterior) / xr) * 100.0
+            else:
+                ea = abs(xr - xr_anterior) * 100.0
+        else:
+            ea = None
+
+        if valor_verdadero is not None and valor_verdadero != 0.0:
+            et = abs((valor_verdadero - xr) / valor_verdadero) * 100.0
+        elif valor_verdadero == 0.0:
+            et = abs(xr) * 100.0
+        else:
+            et = None
+
+        if producto < 0.0:
+            subintervalo = "[xl, xr]"
+            xu = xr
+        elif producto > 0.0:
+            subintervalo = "[xr, xu]"
+            xl = xr
+        else:
+            subintervalo = "Raíz exacta"
+            ea = 0.0
+
+        tabla.append(
+            IteracionBiseccion(
+                iteracion=i,
+                xl=xl if subintervalo == "[xr, xu]" else (xr if subintervalo == "Raíz exacta" else xl),
+                xu=xu,
+                xr=xr,
+                f_xl=fl,
+                f_xr=fr,
+                producto=producto,
+                ea=ea,
+                et=et,
+                subintervalo=subintervalo,
+            )
+        )
+
+        # Restaurar xl/xu de inicio de iteración en la fila registrada para mayor claridad
+        if subintervalo == "[xl, xr]":
+            tabla[-1].xl = xl
+            tabla[-1].xu = xr
+        elif subintervalo == "[xr, xu]":
+            tabla[-1].xl = xr
+            tabla[-1].xu = xu
+
+        if producto == 0.0:
+            criterio_parada = f"Raíz exacta encontrada (f(xr) = 0) en la iteración {i}"
+            break
+
+        if ea is not None and ea < es:
+            criterio_parada = (
+                f"Tolerancia cumplida: εa ({ea:.6f}%) < εs ({es:.6f}%) en la iteración {i}"
+            )
+            break
+
+        xr_anterior = xr
+
+    # Nota: en cada fila guardamos los extremos vigentes AL INICIO de la iteración i
+    # Reconstruimos xl_inicio y xu_inicio de cada fila para mostrar exactamente el intervalo partido
+    xl_rec, xu_rec = xl_0, xu_0
+    for fila in tabla:
+        fila.xl = xl_rec
+        fila.xu = xu_rec
+        if fila.subintervalo == "[xl, xr]":
+            xu_rec = fila.xr
+        elif fila.subintervalo == "[xr, xu]":
+            xl_rec = fila.xr
+
+    ref = valor_verdadero if valor_verdadero is not None else xr
+    n_teo_exacto, n_teo_entero = calcular_iteraciones_teoricas(xl_0, xu_0, es, ref)
+
+    return ResultadoBiseccion(
+        variable=var_name,
+        raiz=xr,
+        f_raiz=fr,
+        iteraciones_realizadas=len(tabla),
+        iteraciones_teoricas_exactas=n_teo_exacto,
+        iteraciones_teoricas_enteras=n_teo_entero,
+        ea_final=tabla[-1].ea,
+        et_final=tabla[-1].et,
+        criterio_parada=criterio_parada,
+        tabla=tabla,
+    )
