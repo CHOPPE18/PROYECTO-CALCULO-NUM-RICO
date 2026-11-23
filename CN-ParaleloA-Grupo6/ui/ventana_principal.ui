@@ -370,12 +370,12 @@
 &lt;p&gt;&lt;b&gt;Carrera:&lt;/b&gt; Ingeniería Mecatrónica — Quinto Nivel&lt;br&gt;
 &lt;b&gt;Unidad 1:&lt;/b&gt; Software para cálculo numérico, teoría del error y ecuaciones no lineales&lt;br&gt;
 &lt;b&gt;Proyecto B:&lt;/b&gt; Método de Bisección aplicado al Circuito RLC serie&lt;br&gt;
-&lt;b&gt;Grupo:&lt;/b&gt; Grupo 6 &amp;nbsp;|&amp;nbsp; &lt;b&gt;Paralelo:&lt;/b&gt; [Colocar Paralelo A o B]&lt;/p&gt;
+&lt;b&gt;Grupo:&lt;/b&gt; Grupo 6 &amp;nbsp;|&amp;nbsp; &lt;b&gt;Paralelo:&lt;/b&gt; A&lt;/p&gt;
 &lt;h3&gt;Integrantes del Equipo&lt;/h3&gt;
 &lt;ul&gt;
-&lt;li&gt;Integrante 1: [Nombre y Apellido — Lógica numérica]&lt;/li&gt;
-&lt;li&gt;Integrante 2: [Nombre y Apellido — Diseño Qt Designer e interfaz]&lt;/li&gt;
-&lt;li&gt;Integrante 3: [Nombre y Apellido — Validación, pruebas y documentación]&lt;/li&gt;
+&lt;li&gt;Integrante 1: JOHNNY MANUEL FLORES MENENDEZ — Programación de lógica numérica&lt;/li&gt;
+&lt;li&gt;Integrante 2: CARLOS STEVEN HOPPE BARCIA — Diseño de interfaz en Qt Designer y gráficas&lt;/li&gt;
+&lt;li&gt;Integrante 3: JENS LEONARD VERA PANCHANA — Pruebas unitarias, validación y documentación &lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;i&gt;Texto base: Chapra y Canale, Métodos numéricos para ingenieros, Capítulos 3, 4 y 5.&lt;/i&gt;&lt;/p&gt;
 &lt;/body&gt;&lt;/html&gt;</string>
