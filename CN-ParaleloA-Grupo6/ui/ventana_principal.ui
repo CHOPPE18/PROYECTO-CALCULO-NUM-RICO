@@ -1,0 +1,396 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1260</width>
+    <height>820</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Cálculo Numérico (MECATR24) — Método de Bisección | Grupo 6</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QVBoxLayout" name="verticalLayoutMain">
+    <item>
+     <widget class="QGroupBox" name="grpParametros">
+      <property name="title">
+       <string>Parámetros del Método de Bisección y Caso de Ingeniería</string>
+      </property>
+      <layout class="QGridLayout" name="gridParametros">
+       <item row="0" column="0">
+        <widget class="QLabel" name="lblEjemplo">
+         <property name="text">
+          <string>Caso / Ejemplo:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1" colspan="3">
+        <widget class="QComboBox" name="cmbEjemplos"/>
+       </item>
+       <item row="0" column="4">
+        <widget class="QLabel" name="lblUnidades">
+         <property name="text">
+          <string>Unidades físicas:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="5">
+        <widget class="QLineEdit" name="txtUnidades">
+         <property name="text">
+          <string>Ω</string>
+         </property>
+         <property name="placeholderText">
+          <string>Ej.: Ω, kg/s, V</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QLabel" name="lblFuncion">
+         <property name="text">
+          <string>Función f(x) = 0:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1" colspan="5">
+        <widget class="QLineEdit" name="txtFuncion">
+         <property name="placeholderText">
+          <string>Ej.: exp(-R*0.05/(2*5))*cos(sqrt(1/(5*10^-4) - (R/(2*5))^2)*0.05) - 0.01</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0">
+        <widget class="QLabel" name="lblXl">
+         <property name="text">
+          <string>Extremo inferior (xl):</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="1">
+        <widget class="QDoubleSpinBox" name="spnXl">
+         <property name="decimals">
+          <number>6</number>
+         </property>
+         <property name="minimum">
+          <double>-1000000.000000</double>
+         </property>
+         <property name="maximum">
+          <double>1000000.000000</double>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="2">
+        <widget class="QLabel" name="lblXu">
+         <property name="text">
+          <string>Extremo superior (xu):</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="3">
+        <widget class="QDoubleSpinBox" name="spnXu">
+         <property name="decimals">
+          <number>6</number>
+         </property>
+         <property name="minimum">
+          <double>-1000000.000000</double>
+         </property>
+         <property name="maximum">
+          <double>1000000.000000</double>
+         </property>
+         <property name="value">
+          <double>400.000000</double>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="4">
+        <widget class="QLabel" name="lblPaso">
+         <property name="text">
+          <string>Paso búsqueda Δx:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="5">
+        <widget class="QDoubleSpinBox" name="spnPaso">
+         <property name="decimals">
+          <number>4</number>
+         </property>
+         <property name="minimum">
+          <double>0.000100</double>
+         </property>
+         <property name="maximum">
+          <double>10000.000000</double>
+         </property>
+         <property name="value">
+          <double>10.000000</double>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="0">
+        <widget class="QLabel" name="lblEs">
+         <property name="text">
+          <string>Tolerancia εs (%):</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="1">
+        <widget class="QDoubleSpinBox" name="spnEs">
+         <property name="decimals">
+          <number>6</number>
+         </property>
+         <property name="minimum">
+          <double>0.000001</double>
+         </property>
+         <property name="maximum">
+          <double>100.000000</double>
+         </property>
+         <property name="value">
+          <double>0.050000</double>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="2">
+        <widget class="QLabel" name="lblMaxIter">
+         <property name="text">
+          <string>Máx. iteraciones:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="3">
+        <widget class="QSpinBox" name="spnMaxIter">
+         <property name="minimum">
+          <number>1</number>
+         </property>
+         <property name="maximum">
+          <number>1000</number>
+         </property>
+         <property name="value">
+          <number>50</number>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="4">
+        <widget class="QLabel" name="lblValorVerdadero">
+         <property name="text">
+          <string>Valor verdadero (opc.):</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="5">
+        <widget class="QLineEdit" name="txtValorVerdadero">
+         <property name="placeholderText">
+          <string>Ej.: 328.1514 (para calcular εt)</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayoutBotones">
+      <item>
+       <widget class="QPushButton" name="btnGraficarPrevio">
+        <property name="text">
+         <string>1. Graficar y Buscar Intervalos (Δx)</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="btnCalcular">
+        <property name="text">
+         <string>2. Calcular Bisección</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="btnLimpiar">
+        <property name="text">
+         <string>Limpiar</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="btnExportarCsv">
+        <property name="text">
+         <string>Exportar CSV</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <widget class="QSplitter" name="splitterContenido">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <widget class="QWidget" name="panelIzquierdo" native="true">
+       <layout class="QVBoxLayout" name="verticalLayoutIzq">
+        <item>
+         <widget class="QGroupBox" name="grpResultado">
+          <property name="title">
+           <string>Resumen de Resultados y Análisis de Convergencia</string>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayoutRes">
+           <item>
+            <widget class="QTextEdit" name="txtResultado">
+             <property name="maximumSize">
+              <size>
+               <width>16777215</width>
+               <height>155</height>
+              </size>
+             </property>
+             <property name="readOnly">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item>
+         <widget class="QGroupBox" name="grpTabla">
+          <property name="title">
+           <string>Tabla de Iteraciones</string>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayoutTabla">
+           <item>
+            <widget class="QTableWidget" name="tablaResultados">
+             <property name="alternatingRowColors">
+              <bool>true</bool>
+             </property>
+             <property name="columnCount">
+              <number>10</number>
+             </property>
+             <column>
+              <property name="text">
+               <string>i</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>xl</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>xu</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>xr</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>f(xl)</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>f(xr)</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>f(xl)·f(xr)</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>εa (%)</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>εt (%)</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Subintervalo elegido</string>
+              </property>
+             </column>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QTabWidget" name="tabGraficas">
+       <property name="currentIndex">
+        <number>0</number>
+       </property>
+       <widget class="QWidget" name="tabPrevio">
+        <attribute name="title">
+         <string>Método Gráfico Previo</string>
+        </attribute>
+        <layout class="QVBoxLayout" name="layoutGraficaPrevio">
+         <item>
+          <widget class="QWidget" name="widgetGraficaPrevio" native="true"/>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QWidget" name="tabAproximaciones">
+        <attribute name="title">
+         <string>f(x) y Puntos xr</string>
+        </attribute>
+        <layout class="QVBoxLayout" name="layoutGraficaAprox">
+         <item>
+          <widget class="QWidget" name="widgetGraficaAprox" native="true"/>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QWidget" name="tabError">
+        <attribute name="title">
+         <string>Convergencia εa (Semilog)</string>
+        </attribute>
+        <layout class="QVBoxLayout" name="layoutGraficaError">
+         <item>
+          <widget class="QWidget" name="widgetGraficaError" native="true"/>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QWidget" name="tabAcercaDe">
+        <attribute name="title">
+         <string>Acerca de</string>
+        </attribute>
+        <layout class="QVBoxLayout" name="layoutAcercaDe">
+         <item>
+          <widget class="QTextEdit" name="txtAcercaDe">
+           <property name="readOnly">
+            <bool>true</bool>
+           </property>
+           <property name="html">
+            <string>&lt;html&gt;&lt;body style="font-family: sans-serif; line-height: 1.5;"&gt;
+&lt;h2&gt;Proyecto de Aula — Cálculo Numérico (MECATR24)&lt;/h2&gt;
+&lt;p&gt;&lt;b&gt;Carrera:&lt;/b&gt; Ingeniería Mecatrónica — Quinto Nivel&lt;br&gt;
+&lt;b&gt;Unidad 1:&lt;/b&gt; Software para cálculo numérico, teoría del error y ecuaciones no lineales&lt;br&gt;
+&lt;b&gt;Proyecto B:&lt;/b&gt; Método de Bisección aplicado al Circuito RLC serie&lt;br&gt;
+&lt;b&gt;Grupo:&lt;/b&gt; Grupo 6 &amp;nbsp;|&amp;nbsp; &lt;b&gt;Paralelo:&lt;/b&gt; [Colocar Paralelo A o B]&lt;/p&gt;
+&lt;h3&gt;Integrantes del Equipo&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Integrante 1: [Nombre y Apellido — Lógica numérica]&lt;/li&gt;
+&lt;li&gt;Integrante 2: [Nombre y Apellido — Diseño Qt Designer e interfaz]&lt;/li&gt;
+&lt;li&gt;Integrante 3: [Nombre y Apellido — Validación, pruebas y documentación]&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;i&gt;Texto base: Chapra y Canale, Métodos numéricos para ingenieros, Capítulos 3, 4 y 5.&lt;/i&gt;&lt;/p&gt;
+&lt;/body&gt;&lt;/html&gt;</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </widget>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
